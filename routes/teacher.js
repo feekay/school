@@ -1,0 +1,16 @@
+var express = require('express');
+var router = express.Router();
+var model = require('../models');
+var teacher = require('./controllers/teacher');
+
+router.params("teacher", function (req, res, next, student) {
+    
+});
+/* GET <META>  listing. */
+router.get('/', teacher.getTeachers);
+/* GET <META>. */
+router.get('/:teacher/', teacher.getTeacher);
+/* Add <META>. */
+router.post('/', teacher.addTeacher);
+
+module.exports = router;
