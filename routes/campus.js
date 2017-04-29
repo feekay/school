@@ -11,7 +11,8 @@ router.get('/', campus.getCampuses);
 /* GET <META>. */
 router.get('/:campus/', campus.getCampus);
 
-router.get('/:campus/classes', campus.getCampus);
+router.get('/:campus/classes', campus.getClasses);
+router.post('/:campus/classes', campus.addClass);
 /* Add <META>. */
 router.post('/', campus.addCampus);
 

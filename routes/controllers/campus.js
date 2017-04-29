@@ -7,6 +7,26 @@ var responseHelper = require("../../helpers/response");
 
 var campus ={};
 
+
+campus.addClass=function(req, res){
+    var post=req.body;
+    model.Campus.find({
+        where:{
+            id: param.campus
+        }
+    })
+    .then(function(campus){
+        model.Class.create({
+            name: post.name,
+            fee:post.fee
+        }).then(function(){
+            res.status= 201;
+            res.send();
+        });
+    });
+    
+
+}
 campus.getClasses= function(req, res){
     var param = req.param;
 

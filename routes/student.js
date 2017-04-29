@@ -10,6 +10,8 @@ router.param("student", function (req, res, next, student) {
 router.get('/', student.getStudents);
 /* GET <META>. */
 router.get('/:student/', student.getStudent);
+router.put('/:student/', student.editStudent);
+
 /* Add <META>. */
 router.post('/', student.addStudent);
 

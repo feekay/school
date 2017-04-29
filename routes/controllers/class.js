@@ -7,20 +7,6 @@ var responseHelper = require("../../helpers/response");
 
 var cls ={}
 
-cls.addClass=function(req, res){
-    var post=req.body;
-    model.Class.create({
-        name: post.name,
-        fee:post.fee
-    }).then(function(){
-        res.status= 201;
-        res.send();
-    });
-
-}
-
-
-
 cls.getClass=function(req, res){
     var param = req.params;
 

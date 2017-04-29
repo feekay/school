@@ -7,6 +7,25 @@ var responseHelper = require("../../helpers/response");
 
 var student ={}
 
+student.editStudent=function(req, res){
+    var post = req.body;
+    var param = req.params;
+  
+    model.Student.find({where: {id: param.student}})
+    .then(function(s){
+        s.updateAttributes({
+            firstname: post.firstname ?post.firstname: s.firstname,
+            lastname: post.lastname ? post.lastname:s.lastname,
+            gender: post.gender ?post.gender :s.gender,
+            dob: post.dob ? new Date(post.dob): s.dob
+        });
+
+        res.status= 201;
+        res.send();
+    });
+}
+
+
 student.addStudent=function(req, res){
     var post = req.body;
     model.Student.create()
