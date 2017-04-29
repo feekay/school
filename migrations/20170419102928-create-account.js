@@ -10,7 +10,7 @@ module.exports = {
       },
       name:{
         type :Sequelize.STRING,
-      }
+      },
       amount: {
         type: Sequelize.INTEGER
       },
