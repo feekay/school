@@ -7,6 +7,25 @@ var responseHelper = require("../../helpers/response");
 
 var teacher ={}
 
+teacher.editTeacher=function(req, res){
+    var post = req.body;
+    var param = req.params;
+  
+    model.Teacher.find({where: {id: param.teacher}})
+    .then(function(s){
+        s.updateAttributes({
+            firstname: post.firstname ?post.firstname: s.firstname,
+            lastname: post.lastname ? post.lastname:s.lastname,
+            gender: post.gender ?post.gender :s.gender,
+            dob: post.dob ? new Date(post.dob): s.dob
+        });
+
+        res.status= 201;
+        res.send();
+    });
+}
+
+
 teacher.getClasses = function(req, res, next){
     var param = req.params;
     model.Teaching.findAll({
