@@ -8,7 +8,13 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var students = require('./routes/student');
-
+var exam = require('./routes/exam');
+var courses = require('./routes/course');
+var cls = require('./routes/class');
+var campus = require('./routes/campus');
+var account = require('./routes/account');
+var teacher = require('./routes/teacher');
+var staff = require('./routes/staff');
 var app = express();
 
 // view engine setup
@@ -26,6 +32,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/students', students);
+app.use('/accounts', account);
+app.use('/campuses', campus);
+app.use('/classes', cls);
+app.use('/courses', courses);
+app.use('/exams', exam);
+app.use('/teachers', teacher);
+app.use('/staffs', staff);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

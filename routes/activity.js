@@ -3,7 +3,7 @@ var router = express.Router();
 var model = require('../models');
 var activity = require('./controllers/activity');
 
-router.params("activity", function (req, res, next, student) {
+router.param("activity", function (req, res, next, student) {
     
 });
 /* GET <META>  listing. */

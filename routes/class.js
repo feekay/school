@@ -3,7 +3,7 @@ var router = express.Router();
 var model = require('../models');
 var cls = require('./controllers/class');
 
-router.params("class", function (req, res, next, student) {
+router.param("class", function (req, res, next, student) {
     
 });
 /* GET <META>  listing. */

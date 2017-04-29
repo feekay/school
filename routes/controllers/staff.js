@@ -7,7 +7,7 @@ var responseHelper = require("../../helpers/response");
 
 var staff ={}
 
-staff.prototype.addStaff=function(req, res){
+staff.addStaff=function(req, res){
     model.Staff.create()
     .then(function(s){
         model.User.create({
@@ -24,7 +24,7 @@ staff.prototype.addStaff=function(req, res){
         res.send();
     });
 }
-staff.prototype.getStaff=function(req, res){
+staff.getStaff=function(req, res){
     var param = req.params;
 
     model.Staff.find({
@@ -36,7 +36,7 @@ staff.prototype.getStaff=function(req, res){
         res.json(Staff);
     });
 }
-staff.prototype.getStaffs=function(req, res){
+staff.getStaffs=function(req, res){
     model.Staff.findAll().then(function(Staffs){
         //Logic
        // res.append
