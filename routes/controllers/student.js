@@ -8,6 +8,7 @@ var responseHelper = require("../../helpers/response");
 var student ={}
 
 student.addStudent=function(req, res){
+    var post = req.body;
     model.Student.create()
     .then(function(s){
         model.User.create({
@@ -28,7 +29,13 @@ student.getStudent=function(req, res){
     var param = req.params;
 
     model.Student.find({
-        where:{
+        include: [
+            {
+                model: model.User,
+                as: "User"
+            }
+            ],
+            where:{
             id: param.student
         }
     })
@@ -37,7 +44,18 @@ student.getStudent=function(req, res){
     });
 }
 student.getStudents=function(req, res){
-    model.Student.findAll().then(function(Students){
+    model.Student.findAll({
+        include: [
+            {
+                model: model.User,
+                as: "User"
+            },
+            {
+                model: model.Section,
+                as :  "Class"
+            }
+            ]
+    }).then(function(Students){
         //Logic
        // res.append
        res.json(Students);
