@@ -9,6 +9,7 @@ var responseHelper = require("../../helpers/response");
 var exam ={}
 
 exam.addExam=function(req, res){
+    var post=req.body;
     model.Exam.create({
         time: post.time
     }).then(function(){

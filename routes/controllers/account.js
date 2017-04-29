@@ -12,7 +12,7 @@ var params = {
 }
 
 account.addAccount=function(req, res){
-    var post = requestHelper.parseBody(req.body);
+    var post=req.body;
     
     if(validator(params, post)){
         model.Account.create({

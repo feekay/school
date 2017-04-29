@@ -7,7 +7,37 @@ var responseHelper = require("../../helpers/response");
 
 var campus ={};
 
+campus.getClasses= function(req, res){
+    var param = req.param;
+
+       model.Class.find({
+            include: [
+                {
+
+                    model: model.Class, as: "Classes"
+        
+
+                }
+
+                    ],
+            where:{
+
+                id:param.campus
+                }
+
+        }).then(function(campus){
+
+
+        res.json(campus);
+
+});
+                
+
+}
+
+
 campus.addCampus=function(req, res){
+    var post=req.body;
     model.Campus.create({
         name: post.name,
         address:post.address

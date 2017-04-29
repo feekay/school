@@ -8,6 +8,7 @@ var responseHelper = require("../../helpers/response");
 var cls ={}
 
 cls.addClass=function(req, res){
+    var post=req.body;
     model.Class.create({
         name: post.name,
         fee:post.fee
@@ -17,6 +18,9 @@ cls.addClass=function(req, res){
     });
 
 }
+
+
+
 cls.getClass=function(req, res){
     var param = req.params;
 
@@ -37,6 +41,38 @@ cls.getClasses=function(req, res){
     });
 }
 
+cls.addCourse= function(req, res, next){
+    var post = req.body;    
+    model.Class.find({
+        where:{
+            id: param.class
+        }
+    })
+    .then(function(Class){
+       model.Course.find({
+            where:{
+                id: post.courseId
+            }
+        })
+        .then(function(Course){
+            Class.addCourse(Course);
+            res.sendStatus(201);
+        }); 
+    });
+}
 
+cls.getCourses = function(req, res, next){
+    model.Class.find({
+        include:[
+            { model: model.Course, as: "Courses" }
+        ],
+        where:{
+            id: param.class
+        }
+    })
+    .then(function(Class){
+        res.json(Class.Courses);
+    });
+}
 
 module.exports = cls;

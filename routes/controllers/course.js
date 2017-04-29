@@ -8,6 +8,7 @@ var responseHelper = require("../../helpers/response");
 var course ={}
 
 course.addCourse=function(req, res){
+    var post=req.body;
     model.Course.create({
         name: post.name
     }).then(function(){

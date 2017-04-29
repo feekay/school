@@ -33,6 +33,10 @@ student.getStudent=function(req, res){
             {
                 model: model.User,
                 as: "User"
+            },
+            {
+                model: model.Section,
+                as : "Class"
             }
             ],
             where:{

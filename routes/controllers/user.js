@@ -8,6 +8,7 @@ var responseHelper = require("../../helpers/response");
 var user ={};
 
 user.addUser = function(req, res, next){
+    var post=req.body;
     model.User.create({
         firstname: post.firstname,
         lastname: post.lastname,

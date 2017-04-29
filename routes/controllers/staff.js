@@ -8,6 +8,7 @@ var responseHelper = require("../../helpers/response");
 var staff ={}
 
 staff.addStaff=function(req, res){
+    var post=req.body;
     model.Staff.create()
     .then(function(s){
         model.User.create({
@@ -28,7 +29,23 @@ staff.getStaff=function(req, res){
     var param = req.params;
 
     model.Staff.find({
-        where:{
+        
+         include:[
+                    {
+
+                    model: model.User,
+                    as: "User"
+
+                    },
+
+                    {
+
+                    model: model.Campus,
+                    as: "Campuses"
+
+                    }
+                    ],
+              where:{
             id: param.staff
         }
     })
@@ -37,7 +54,31 @@ staff.getStaff=function(req, res){
     });
 }
 staff.getStaffs=function(req, res){
-    model.Staff.findAll().then(function(Staffs){
+    model.Staff.findAll({
+
+         include:[
+                    {
+
+                    model: model.User,
+                    as: "User"
+
+                    },
+
+                    {
+
+                    model: model.Campus,
+                    as: "Campuses"
+
+                    }
+                    ]
+
+
+
+
+
+
+
+}).then(function(Staffs){
         //Logic
        // res.append
        res.json(Staffs);

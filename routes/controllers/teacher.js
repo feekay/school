@@ -7,7 +7,37 @@ var responseHelper = require("../../helpers/response");
 
 var teacher ={}
 
+teacher.getClasses = function(req, res, next){
+    var param = req.params;
+    model.Teaching.findAll({
+            where: {teacherId: param.teacher},
+            include:[
+                { model: model.Course },
+                { model: model.Section },
+                { model: model.Teacher }
+            ]
+        }).then(function(t){
+            res.json(t);
+        });
+};
+
+teacher.addCourse = function(req, res, next){
+    var param = req.params;
+    model.Teaching.create().then(function(t){
+        model.Teacher.find({where:{id: param.teacher}}).then(function(teacher){
+            model.Section.find({where:{id: post.sectionId}}).then(function(section){
+                model.Course.find({where:{id: param.courseId}}).then(function(course){
+                    t.setTeacher(teacher);
+                    t.setSection(section);
+                    t.setCourse(course);
+                });
+            });
+        });
+    });
+};
+
 teacher.addTeacher=function(req, res){
+    var post=req.body;
     model.Teacher.create()
     .then(function(s){
         model.User.create({
@@ -28,7 +58,22 @@ teacher.getTeacher=function(req, res){
     var param = req.params;
 
     model.Teacher.find({
-        where:{
+        
+        include: [
+                {             
+                model: model.User,
+                as: "User"
+                },
+                {
+
+                model: model.Campus,
+                as: "Campuses"
+
+
+                }
+            
+                 ],
+     where:{
             id: param.teacher
         }
     })
@@ -37,7 +82,24 @@ teacher.getTeacher=function(req, res){
     });
 }
 teacher.getTeachers=function(req, res){
-    model.Teacher.findAll().then(function(Teachers){
+    model.Teacher.findAll({
+        
+            include:[
+                    {
+
+                    model: model.User,
+                    as: "User"
+
+                    },
+
+                    {
+
+                    model: model.Campus,
+                    as: "Campuses"
+
+                    }
+                    ]
+}).then(function(Teachers){
         //Logic
        // res.append
        res.json(Teachers);
