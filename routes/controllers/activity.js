@@ -6,9 +6,6 @@ var responseHelper = require("../../helpers/response");
 
 
 var activity = {};
-var params = {
-}
-
 
 activity.addActivity = function (req, res) { }
 activity.getActivity = function (req, res) { }

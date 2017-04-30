@@ -23,7 +23,6 @@ course.addCourse = function (req, res) {
 */
 course.getCourse = function (req, res) {
     var param = req.params;
-
     model.Course.find({
         where: {
             id: param.course

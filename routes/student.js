@@ -4,7 +4,7 @@ var model = require('../models');
 var student = require('./controllers/student');
 
 router.param("student", function (req, res, next, student) {
-    
+    next();
 });
 /* GET <META>  listing. */
 router.get('/', student.getStudents);

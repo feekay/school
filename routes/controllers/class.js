@@ -32,6 +32,7 @@ cls.getClasses = function (req, res) {
 */
 cls.addCourse = function (req, res, next) {
     var post = req.body;
+    var param = req.params;
     model.Class.find({
         where: {
             id: param.class
@@ -51,6 +52,7 @@ cls.addCourse = function (req, res, next) {
  *  
 */
 cls.getCourses = function (req, res, next) {
+    var param = req.params;
     model.Class.find({
         include: [
             { model: model.Course, as: "Courses" }
@@ -67,6 +69,7 @@ cls.getCourses = function (req, res, next) {
 */
 cls.addSection = function (req, res, next) {
     var post = req.body;
+    var param = req.params;
     model.Class.find({
         where: {
             id: param.class
@@ -84,6 +87,7 @@ cls.addSection = function (req, res, next) {
  *  
 */
 cls.getSections = function (req, res, next) {
+    var param = req.params;
     model.Class.find({
         include: [
             { model: model.Section, as: "Sections" }

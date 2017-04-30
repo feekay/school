@@ -24,7 +24,6 @@ exam.addExam = function (req, res) {
 */
 exam.getExam = function (req, res) {
     var param = req.params;
-
     model.Exam.find({
         where: {
             id: param.exam

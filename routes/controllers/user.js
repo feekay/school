@@ -26,7 +26,6 @@ user.addUser = function (req, res, next) {
 */
 user.getUser = function (req, res, next) {
     var param = req.params;
-
     model.User.find({
         where: {
             id: param.user
@@ -40,8 +39,6 @@ user.getUser = function (req, res, next) {
 */
 user.getUsers = function (req, res, next) {
     model.User.findAll().then(function (Users) {
-        //Logic
-        // res.append
         res.json(Users);
     });
 }

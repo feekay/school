@@ -19,13 +19,12 @@ var classParams = {
 */
 campus.addAccount = function (req, res) {
     var post = req.body;
-
+    var param = req.params;
     model.Campus.find({
         where: {
             id: param.campus
         }
     }).then(function (campus) {
-
         if (validator(accountParams, post)) {
             model.Account.create({
                 amount: post.amount
@@ -41,7 +40,7 @@ campus.addAccount = function (req, res) {
  *  
 */
 campus.getAccounts = function (req, res) {
-    var param = req.param;
+    var param = req.params;
     model.Campus.find({
         include: [
             {
@@ -61,6 +60,7 @@ campus.getAccounts = function (req, res) {
 */
 campus.addClass = function (req, res) {
     var post = req.body;
+    var param = req.params;
     model.Campus.find({
         where: {
             id: param.campus
@@ -80,8 +80,7 @@ campus.addClass = function (req, res) {
  *  
 */
 campus.getClasses = function (req, res) {
-    var param = req.param;
-
+    var param = req.params;
     model.Campus.find({
         include: [
             {
@@ -114,7 +113,6 @@ campus.addCampus = function (req, res) {
 */
 campus.getCampus = function (req, res) {
     var param = req.params;
-
     model.Campus.find({
         where: {
             id: param.campus
@@ -128,8 +126,6 @@ campus.getCampus = function (req, res) {
 */
 campus.getCampuses = function (req, res) {
     model.Campus.findAll().then(function (campuses) {
-        //Logic
-        // res.append
         res.json(campuses);
     });
 }

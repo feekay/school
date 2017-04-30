@@ -37,6 +37,7 @@ section.getActivities = function (req, res, next) {
  *  
 */
 section.addActivity = function (req, res, next) {
+    var param = req.params;
     model.Section.find({
         where: {
             id: param.section

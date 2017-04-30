@@ -85,7 +85,6 @@ teacher.getTeacher = function (req, res) {
     var param = req.params;
 
     model.Teacher.find({
-
         include: [
             {
                 model: model.User,

@@ -85,5 +85,4 @@ student.getStudents = function (req, res) {
         res.json(Students);
     });
 }
-
 module.exports = student;

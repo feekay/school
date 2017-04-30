@@ -4,7 +4,7 @@ var model = require('../models');
 var activity = require('./controllers/activity');
 
 router.param("activity", function (req, res, next, student) {
-    
+    next();
 });
 /* GET <META>  listing. */
 router.get('/', activity.getActivities);

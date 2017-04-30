@@ -3,8 +3,8 @@ var router = express.Router();
 var model = require('../models');
 var campus = require('./controllers/campus');
 
-router.param("campus", function (req, res, next, student) {
-    
+router.param("campus", function (req, res, next, campus) {
+    next();
 });
 /* GET <META>  listing. */
 router.get('/', campus.getCampuses);

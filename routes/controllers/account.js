@@ -9,9 +9,7 @@ var account = {}
  *  
 */
 account.getAccount = function (req, res) {
-
     var param = req.params;
-
     model.Account.find({
         where: {
             id: param.account
@@ -25,10 +23,7 @@ account.getAccount = function (req, res) {
 */
 account.getAccounts = function (req, res) {
     model.Account.findAll().then(function (accounts) {
-        //Logic
-        // res.append
         res.json(accounts);
     });
 }
-
 module.exports = account;

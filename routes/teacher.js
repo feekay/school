@@ -3,8 +3,8 @@ var router = express.Router();
 var model = require('../models');
 var teacher = require('./controllers/teacher');
 
-router.param("teacher", function (req, res, next, student) {
-    
+router.param("teacher", function (req, res, next, teacher) {
+    next();
 });
 /* GET <META>  listing. */
 router.get('/', teacher.getTeachers);
