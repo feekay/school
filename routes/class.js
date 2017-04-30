@@ -11,7 +11,9 @@ router.get('/', cls.getClasses);
 /* GET <META>. */
 router.get('/:class/', cls.getClass);
 /* Add <META>. */
-
 router.get('/:class/courses', cls.getCourses);
 router.post('/:class/courses', cls.addCourse);
+/* */
+router.get('/:class/sections', cls.getSections);
+router.post('/:class/sections', cls.addSection);
 module.exports = router;

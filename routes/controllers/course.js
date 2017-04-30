@@ -1,40 +1,46 @@
 var model = require('../../models');
-var validator=  require('../../helpers/validate');
+var validator = require('../../helpers/validate');
 var requestHelper = require("../../helpers/request");
 var constants = require("../../config/constants");
 var responseHelper = require("../../helpers/response");
 
 
-var course ={}
-
-course.addCourse=function(req, res){
-    var post=req.body;
+var course = {}
+/** 
+ *  
+*/
+course.addCourse = function (req, res) {
+    var post = req.body;
     model.Course.create({
         name: post.name
-    }).then(function(){
-        res.status= 201;
+    }).then(function () {
+        res.status = 201;
         res.send();
     });
 }
-course.getCourse=function(req, res){
+/** 
+ *  
+*/
+course.getCourse = function (req, res) {
     var param = req.params;
 
     model.Course.find({
-        where:{
+        where: {
             id: param.course
         }
-    })
-    .then(function(Course){
+    }).then(function (Course) {
         res.json(Course);
     });
 }
-course.getCourses=function(req, res){
-    model.Course.findAll().then(function(Courses){
+/** 
+ *  
+*/
+course.getCourses = function (req, res) {
+    model.Course.findAll().then(function (Courses) {
         //Logic
-       // res.append
-       res.json(Courses);
+        // res.append
+        res.json(Courses);
     });
 }
-
 
 module.exports = course;

@@ -10,7 +10,5 @@ router.param("account", function (req, res, next, student) {
 router.get('/', account.getAccounts);
 /* GET <META>. */
 router.get('/:account/', account.getAccount);
-/* Add <META>. */
-router.post('/', account.addAccount);
 
 module.exports = router;

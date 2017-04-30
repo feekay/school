@@ -1,91 +1,136 @@
 var model = require('../../models');
-var validator=  require('../../helpers/validate');
+var validator = require('../../helpers/validate');
 var requestHelper = require("../../helpers/request");
 var constants = require("../../config/constants");
 var responseHelper = require("../../helpers/response");
 
 
-var campus ={};
+var campus = {};
 
+var accountParams = {
+    'amount': "number"
+}
 
-campus.addClass=function(req, res){
-    var post=req.body;
+var classParams = {
+    'amount': "number"
+}
+/** 
+ *  
+*/
+campus.addAccount = function (req, res) {
+    var post = req.body;
+
     model.Campus.find({
-        where:{
+        where: {
             id: param.campus
         }
-    })
-    .then(function(campus){
+    }).then(function (campus) {
+
+        if (validator(accountParams, post)) {
+            model.Account.create({
+                amount: post.amount
+            }).then(function (acc) {
+                acc.setCampus(campus);
+                res.status = 201;
+                res.send();
+            });
+        }
+    });
+}
+/** 
+ *  
+*/
+campus.getAccounts = function (req, res) {
+    var param = req.param;
+    model.Campus.find({
+        include: [
+            {
+                model: model.Account, as: "Accounts"
+            }
+        ],
+        where: {
+            id: param.campus
+        }
+    }).then(function (campus) {
+        res.json(campus.Accounts);
+    });
+}
+
+/** 
+ *  
+*/
+campus.addClass = function (req, res) {
+    var post = req.body;
+    model.Campus.find({
+        where: {
+            id: param.campus
+        }
+    }).then(function (campus) {
         model.Class.create({
             name: post.name,
-            fee:post.fee
-        }).then(function(){
-            res.status= 201;
+            fee: post.fee
+        }).then(function (cls) {
+            cls.setCampus(campus);
+            res.status = 201;
             res.send();
         });
     });
-    
-
 }
-campus.getClasses= function(req, res){
+/** 
+ *  
+*/
+campus.getClasses = function (req, res) {
     var param = req.param;
 
-       model.Class.find({
-            include: [
-                {
-
-                    model: model.Class, as: "Classes"
-        
-
-                }
-
-                    ],
-            where:{
-
-                id:param.campus
-                }
-
-        }).then(function(campus){
-
-
-        res.json(campus);
-
-});
-                
-
+    model.Campus.find({
+        include: [
+            {
+                model: model.Class, as: "Classes"
+            }
+        ],
+        where: {
+            id: param.campus
+        }
+    }).then(function (campus) {
+        res.json(campus.Classes);
+    });
 }
-
-
-campus.addCampus=function(req, res){
-    var post=req.body;
+/** 
+ *  
+*/
+campus.addCampus = function (req, res) {
+    var post = req.body;
     model.Campus.create({
         name: post.name,
-        address:post.address
-    }).then(function(){
-        res.status= 201;
+        address: post.address
+    }).then(function () {
+        res.status = 201;
         res.send();
     });
 
 }
-campus.getCampus=function(req, res){
+/** 
+ *  
+*/
+campus.getCampus = function (req, res) {
     var param = req.params;
 
     model.Campus.find({
-        where:{
+        where: {
             id: param.campus
         }
-    })
-    .then(function(campus){
+    }).then(function (campus) {
         res.json(campus);
     });
 }
-campus.getCampuses=function(req, res){
-    model.Campus.findAll().then(function(campuses){
+/** 
+ *  
+*/
+campus.getCampuses = function (req, res) {
+    model.Campus.findAll().then(function (campuses) {
         //Logic
-       // res.append
-       res.json(campuses);
+        // res.append
+        res.json(campuses);
     });
 }
-
-
 module.exports = campus;
