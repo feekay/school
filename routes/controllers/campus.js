@@ -34,6 +34,9 @@ campus.addAccount = function (req, res) {
                 res.send();
             });
         }
+        else{
+            res.sendStatus(400);
+        }
     });
 }
 /** 
