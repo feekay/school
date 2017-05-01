@@ -9,7 +9,7 @@ var staff = {}
 /** 
  *  
 */
-staff.editStaff = function (req, res) {
+staff.editStaff = function (req, res, next) {
     var post = req.body;
     var param = req.params;
 
@@ -23,11 +23,12 @@ staff.editStaff = function (req, res) {
         res.status = 201;
         res.send();
     });
+    
 }
 /** 
  *  
 */
-staff.addStaff = function (req, res) {
+staff.addStaff = function (req, res, next) {
     var post = req.body;
     model.Staff.create().then(function (s) {
         model.User.create({
@@ -42,11 +43,12 @@ staff.addStaff = function (req, res) {
         res.status = 201;
         res.send();
     });
+    
 }
 /** 
  *  
 */
-staff.getStaff = function (req, res) {
+staff.getStaff = function (req, res, next) {
     var param = req.params;
 
     model.Staff.find({
@@ -70,7 +72,7 @@ staff.getStaff = function (req, res) {
 /** 
  *  
 */
-staff.getStaffs = function (req, res) {
+staff.getStaffs = function (req, res, next) {
     model.Staff.findAll({
         include: [
             {

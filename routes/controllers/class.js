@@ -9,7 +9,7 @@ var cls = {}
 /** 
  *  
 */
-cls.getClass = function (req, res) {
+cls.getClass = function (req, res, next) {
     var param = req.params;
     model.Class.find({
         where: {
@@ -22,7 +22,7 @@ cls.getClass = function (req, res) {
 /** 
  *  
 */
-cls.getClasses = function (req, res) {
+cls.getClasses = function (req, res, next) {
     model.Class.findAll().then(function (Classes) {
         res.json(Classes);
     });
@@ -47,6 +47,7 @@ cls.addCourse = function (req, res, next) {
             res.sendStatus(201);
         });
     });
+    ;
 }
 /** 
  *  

@@ -9,7 +9,7 @@ var section = {}
 /** 
  *  
 */
-section.addSection = function (req, res) {
+section.addSection = function (req, res, next) {
     var post = req.body;
     model.Section.create({
         number: post.number
@@ -17,6 +17,7 @@ section.addSection = function (req, res) {
         res.status = 201;
         res.send();
     });
+    
 }
 /** 
  *  
@@ -50,11 +51,12 @@ section.addActivity = function (req, res, next) {
             res.sendStatus(201);
         });
     });
+    
 }
 /** 
  *  
 */
-section.getSection = function (req, res) {
+section.getSection = function (req, res, next) {
     var param = req.params;
     model.Section.find({
         where: {
@@ -67,7 +69,7 @@ section.getSection = function (req, res) {
 /**
  * 
  */
-section.getSections = function (req, res) {
+section.getSections = function (req, res, next) {
     model.Section.findAll().then(function (Sections) {
         res.json(Sections);
     });

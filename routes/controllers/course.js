@@ -9,7 +9,7 @@ var course = {}
 /** 
  *  
 */
-course.addCourse = function (req, res) {
+course.addCourse = function (req, res, next) {
     var post = req.body;
     model.Course.create({
         name: post.name
@@ -17,11 +17,12 @@ course.addCourse = function (req, res) {
         res.status = 201;
         res.send();
     });
+    
 }
 /** 
  *  
 */
-course.getCourse = function (req, res) {
+course.getCourse = function (req, res, next) {
     var param = req.params;
     model.Course.find({
         where: {
@@ -34,7 +35,7 @@ course.getCourse = function (req, res) {
 /** 
  *  
 */
-course.getCourses = function (req, res) {
+course.getCourses = function (req, res, next) {
     model.Course.findAll().then(function (Courses) {
         //Logic
         // res.append

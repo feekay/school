@@ -20,6 +20,7 @@ user.addUser = function (req, res, next) {
         res.status = 201;
         res.send();
     });
+    
 }
 /** 
  *  
@@ -60,5 +61,6 @@ user.login = function (req, res, next) {
         }
 
     });
+    
 }
 module.exports = user;

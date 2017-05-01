@@ -9,7 +9,7 @@ var student = {}
 /** 
  *  
 */
-student.editStudent = function (req, res) {
+student.editStudent = function (req, res, next) {
     var post = req.body;
     var param = req.params;
 
@@ -24,11 +24,12 @@ student.editStudent = function (req, res) {
             res.status = 201;
             res.send();
         });
+        
 }
 /** 
  *  
 */
-student.addStudent = function (req, res) {
+student.addStudent = function (req, res, next) {
     var post = req.body;
     model.Student.create().then(function (s) {
         model.User.create({
@@ -42,11 +43,12 @@ student.addStudent = function (req, res) {
         res.status = 201;
         res.send();
     });
+    
 }
 /** 
  *  
 */
-student.getStudent = function (req, res) {
+student.getStudent = function (req, res, next) {
     var param = req.params;
     model.Student.find({
         include: [
@@ -69,7 +71,7 @@ student.getStudent = function (req, res) {
 /** 
  *  
 */
-student.getStudents = function (req, res) {
+student.getStudents = function (req, res, next) {
     model.Student.findAll({
         include: [
             {

@@ -17,7 +17,7 @@ var classParams = {
 /** 
  *  
 */
-campus.addAccount = function (req, res) {
+campus.addAccount = function (req, res, next) {
     var post = req.body;
     var param = req.params;
     model.Campus.find({
@@ -38,11 +38,12 @@ campus.addAccount = function (req, res) {
             res.sendStatus(400);
         }
     });
+    ;
 }
 /** 
  *  
 */
-campus.getAccounts = function (req, res) {
+campus.getAccounts = function (req, res, next) {
     var param = req.params;
     model.Campus.find({
         include: [
@@ -56,12 +57,13 @@ campus.getAccounts = function (req, res) {
     }).then(function (campus) {
         res.json(campus.Accounts);
     });
+    ;
 }
 
 /** 
  *  
 */
-campus.addClass = function (req, res) {
+campus.addClass = function (req, res, next) {
     var post = req.body;
     var param = req.params;
     model.Campus.find({
@@ -78,11 +80,12 @@ campus.addClass = function (req, res) {
             res.send();
         });
     });
+    ;
 }
 /** 
  *  
 */
-campus.getClasses = function (req, res) {
+campus.getClasses = function (req, res, next) {
     var param = req.params;
     model.Campus.find({
         include: [
@@ -96,11 +99,12 @@ campus.getClasses = function (req, res) {
     }).then(function (campus) {
         res.json(campus.Classes);
     });
+    ;
 }
 /** 
  *  
 */
-campus.addCampus = function (req, res) {
+campus.addCampus = function (req, res, next) {
     var post = req.body;
     model.Campus.create({
         name: post.name,
@@ -114,7 +118,7 @@ campus.addCampus = function (req, res) {
 /** 
  *  
 */
-campus.getCampus = function (req, res) {
+campus.getCampus = function (req, res, next) {
     var param = req.params;
     model.Campus.find({
         where: {
@@ -127,7 +131,7 @@ campus.getCampus = function (req, res) {
 /** 
  *  
 */
-campus.getCampuses = function (req, res) {
+campus.getCampuses = function (req, res, next) {
     model.Campus.findAll().then(function (campuses) {
         res.json(campuses);
     });

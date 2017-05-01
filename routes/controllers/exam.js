@@ -10,7 +10,7 @@ var exam = {}
 /** 
  *  
 */
-exam.addExam = function (req, res) {
+exam.addExam = function (req, res, next) {
     var post = req.body;
     model.Exam.create({
         time: post.time
@@ -18,11 +18,12 @@ exam.addExam = function (req, res) {
         res.status = 201;
         res.send();
     });
+    
 }
 /** 
  *  
 */
-exam.getExam = function (req, res) {
+exam.getExam = function (req, res, next) {
     var param = req.params;
     model.Exam.find({
         where: {
@@ -35,7 +36,7 @@ exam.getExam = function (req, res) {
 /** 
  *  
 */
-exam.getExams = function (req, res) {
+exam.getExams = function (req, res, next) {
     model.Exam.findAll().then(function (Exams) {
         //Logic
         // res.append
