@@ -51,7 +51,7 @@ teacher.addCourse = function (req, res, next) {
     model.Teaching.create().then(function (t) {
         model.Teacher.find({ where: { id: param.teacher } }).then(function (teacher) {
             model.Section.find({ where: { id: post.sectionId } }).then(function (section) {
-                model.Course.find({ where: { id: param.courseId } }).then(function (course) {
+                model.Course.find({ where: { id: post.courseId } }).then(function (course) {
                     t.setTeacher(teacher);
                     t.setSection(section);
                     t.setCourse(course);

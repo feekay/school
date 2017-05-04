@@ -75,11 +75,11 @@ cls.addSection = function (req, res, next) {
         where: {
             id: param.class
         }
-    }).then(function (Class) {
+    }).then(function (cls) {
         model.Section.create({
             number: post.number
-        }).then(function (Course) {
-            Class.addCourse(Course);
+        }).then(function (section) {
+            cls.addSection(section);
             res.sendStatus(201);
         });
     });
