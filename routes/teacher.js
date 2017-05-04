@@ -14,6 +14,6 @@ router.put('/:teacher/', teacher.editTeacher);
 /* Add <META>. */
 router.post('/', teacher.addTeacher);
 
-router.get('/:teacher/classes', teacher.getClasses);
-router.post('/:teacher/classes', teacher.addCourse);
+router.get('/:teacher/courses', teacher.getCourses);
+router.post('/:teacher/courses', teacher.addCourse);
 module.exports = router;

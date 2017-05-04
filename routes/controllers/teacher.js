@@ -23,31 +23,31 @@ teacher.editTeacher = function (req, res, next) {
         res.status = 201;
         res.send();
     });
-    
+
 }
 /** 
  *  
 */
 
-teacher.getClasses = function (req, res, next) {
+teacher.getCourses = function (req, res, next) {
     var param = req.params;
     model.Teaching.findAll({
-        where: { teacherId: param.teacher },
+        where: { TeacherId: param.teacher },
         include: [
-            { model: model.Course },
-            { model: model.Section },
-            { model: model.Teacher }
+            { model: model.Course,as:"Course"  },
+            { model: model.Section,as:"Section"  },
         ]
     }).then(function (t) {
         res.json(t);
     });
-    
+
 };
 /** 
  *  
 */
 teacher.addCourse = function (req, res, next) {
     var param = req.params;
+    var post=req.body;
     model.Teaching.create().then(function (t) {
         model.Teacher.find({ where: { id: param.teacher } }).then(function (teacher) {
             model.Section.find({ where: { id: post.sectionId } }).then(function (section) {
@@ -55,11 +55,12 @@ teacher.addCourse = function (req, res, next) {
                     t.setTeacher(teacher);
                     t.setSection(section);
                     t.setCourse(course);
+                    res.sendStatus(201);
                 });
             });
         });
     });
-    
+
 };
 /** 
  *  
@@ -80,7 +81,7 @@ teacher.addTeacher = function (req, res, next) {
         res.status = 201;
         res.send();
     });
-    
+
 }
 /** 
  *  
@@ -105,7 +106,7 @@ teacher.getTeacher = function (req, res, next) {
     }).then(function (Teacher) {
         res.json(Teacher);
     });
-    
+
 }
 /** 
  *  
@@ -123,11 +124,9 @@ teacher.getTeachers = function (req, res, next) {
             }
         ]
     }).then(function (Teachers) {
-        //Logic
-        // res.append
         res.json(Teachers);
     });
-    
+
 }
 /** 
  *  

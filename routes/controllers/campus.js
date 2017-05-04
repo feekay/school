@@ -34,7 +34,7 @@ campus.addAccount = function (req, res, next) {
                 res.send();
             });
         }
-        else{
+        else {
             res.sendStatus(400);
         }
     });

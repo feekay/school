@@ -15,6 +15,7 @@ var campus = require('./routes/campus');
 var account = require('./routes/account');
 var teacher = require('./routes/teacher');
 var staff = require('./routes/staff');
+var section = require('./routes/section');
 var app = express();
 
 // view engine setup
@@ -50,6 +51,7 @@ app.use('/courses', courses);
 app.use('/exams', exam);
 app.use('/teachers', teacher);
 app.use('/staffs', staff);
+app.use('/sections', section);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -17,7 +17,24 @@ section.addSection = function (req, res, next) {
         res.status = 201;
         res.send();
     });
-    
+
+}
+/**
+ * 
+ */
+section.getStudents = function (req, res, next) {
+
+    var param = req.params;
+    model.Section.find({
+        where: {
+            id: param.section
+        },
+        include: [
+            { model: model.Student, as: "Students" }
+        ]
+    }).then(function (section) {
+        res.json(section);
+    });
 }
 /** 
  *  
@@ -39,19 +56,21 @@ section.getActivities = function (req, res, next) {
 */
 section.addActivity = function (req, res, next) {
     var param = req.params;
+    var post= req.body;
     model.Section.find({
         where: {
             id: param.section
         }
     }).then(function (Section) {
         model.Activity.create({
-            number: post.number
+            date: post.date? new Date(post.date):null,
+            description: post.description
         }).then(function (activity) {
             activity.setSection(Section);
             res.sendStatus(201);
         });
     });
-    
+
 }
 /** 
  *  

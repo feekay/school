@@ -10,6 +10,7 @@ router.param("course", function (req, res, next, course) {
 router.get('/', course.getCourses);
 /* GET <META>. */
 router.get('/:course/', course.getCourse);
+router.get('/:course/teachers', course.getTeaching);
 /* Add <META>. */
 router.post('/', course.addCourse);
 

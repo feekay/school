@@ -17,7 +17,7 @@ course.addCourse = function (req, res, next) {
         res.status = 201;
         res.send();
     });
-    
+
 }
 /** 
  *  
@@ -37,10 +37,21 @@ course.getCourse = function (req, res, next) {
 */
 course.getCourses = function (req, res, next) {
     model.Course.findAll().then(function (Courses) {
-        //Logic
-        // res.append
         res.json(Courses);
     });
+}
+course.getTeaching = function (req, res, next) {
+    param = req.params;
+    model.Teaching.findAll({
+        where: { courseId: param.id },
+        include: [
+            { model: model.Teacher, as:"Teacher" },
+            { model: model.Section, as:"Section" }
+        ]
+    }).then(function (teaching) {
+        res.json(teaching);
+    })
+
 }
 
 module.exports = course;
