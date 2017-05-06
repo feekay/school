@@ -13,7 +13,7 @@ var course_params={};
 */
 course.addCourse = function (req, res, next) {
     var post = req.body;
-    if (validator(course_params, post.body)) {
+    if (validator(course_params, post)) {
         model.Course.create({
             name: post.name
         }).then(function () {

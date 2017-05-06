@@ -13,7 +13,7 @@ var exam_params = {};
 */
 exam.addExam = function (req, res, next) {
     var post = req.body;
-    if (validator(exam_params,post.body)){
+    if (validator(exam_params,post)){
         model.Exam.create({
             time: post.time
         }).then(function () {

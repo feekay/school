@@ -17,7 +17,7 @@ var user_params = {
 */
 user.addUser = function (req, res, next) {
     var post = req.body;
-    if (validator(user_params, req.body)) {
+    if (validator(user_params, body)) {
         model.User.create({
             firstname: post.firstname,
             lastname: post.lastname,

@@ -56,7 +56,7 @@ student.deleteStudent = function (req, res, next) {
 */
 student.addStudent = function (req, res, next) {
     var post = req.body;
-    if (validator(student_params, req.body)) {
+    if (validator(student_params, post)) {
         model.Student.create().then(function (s) {
             model.User.create({
                 firstname: post.firstname,

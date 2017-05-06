@@ -12,7 +12,7 @@ var account_params = {
 }
 
 var class_params = {
-    'amount': "number"
+
 }
 var campus_params={
 
@@ -89,7 +89,7 @@ campus.addClass = function (req, res, next) {
         }
     }).then(function (campus) {
         if (campus) {
-            if (validator(class_params, post.body)) {
+            if (validator(class_params, post)) {
                 model.Class.create({
                     name: post.name,
                     fee: post.fee
@@ -141,7 +141,7 @@ campus.getClasses = function (req, res, next) {
 */
 campus.addCampus = function (req, res, next) {
     var post = req.body;
-    if (validator(campus_params, post.body)) {
+    if (validator(campus_params, post)) {
         model.Campus.create({
             name: post.name,
             address: post.address

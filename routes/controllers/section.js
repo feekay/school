@@ -13,7 +13,7 @@ var section_params={};
 */
 section.addSection = function (req, res, next) {
     var post = req.body;
-    if (validator(section_params, post.body)) {
+    if (validator(section_params, post)) {
         model.Section.create({
             number: post.number
         }).then(function () {
@@ -90,7 +90,7 @@ section.addActivity = function (req, res, next) {
         }
     }).then(function (section) {
         if (section) {
-            if (validator(activity_params, post.body)) {
+            if (validator(activity_params, post)) {
                 model.Activity.create({
                     date: post.date ? new Date(post.date) : null,
                     description: post.description

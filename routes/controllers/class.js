@@ -104,7 +104,7 @@ cls.addSection = function (req, res, next) {
         }
     }).then(function (cls) {
         if (cls) {
-            if (validator(section_params, post.body)) {
+            if (validator(section_params, post)) {
                 model.Section.create({
                     number: post.number
                 }).then(function (section) {

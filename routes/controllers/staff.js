@@ -33,7 +33,7 @@ staff.editStaff = function (req, res, next) {
 */
 staff.addStaff = function (req, res, next) {
     var post = req.body;
-    if (validator(staff_params, post.body)) {
+    if (validator(staff_params, post)) {
         model.Staff.create().then(function (s) {
             model.User.create({
                 firstname: post.firstname,

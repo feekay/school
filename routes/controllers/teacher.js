@@ -61,7 +61,7 @@ teacher.getCourses = function (req, res, next) {
 teacher.addCourse = function (req, res, next) {
     var param = req.params;
     var post = req.body;
-    if (validator(course_params, req.body)) {
+    if (validator(course_params, post)) {
         model.Teaching.create().then(function (t) {
             model.Teacher.find({ where: { id: param.teacher } }).then(function (teacher) {
                 model.Section.find({ where: { id: post.sectionId } }).then(function (section) {
@@ -88,7 +88,7 @@ teacher.addCourse = function (req, res, next) {
 */
 teacher.addTeacher = function (req, res, next) {
     var post = req.body;
-    if (validator(teacher_params, req.body)) {
+    if (validator(teacher_params, post)) {
         model.Teacher.create().then(function (s) {
             model.User.create({
                 firstname: post.firstname,
