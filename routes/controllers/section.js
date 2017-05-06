@@ -5,18 +5,28 @@ var constants = require("../../config/constants");
 var responseHelper = require("../../helpers/response");
 
 
-var section = {}
+var section = {};
+var activity_params={};
+var section_params={};
 /** 
  *  
 */
 section.addSection = function (req, res, next) {
     var post = req.body;
-    model.Section.create({
-        number: post.number
-    }).then(function () {
-        res.status = 201;
+    if (validator(section_params, post.body)) {
+        model.Section.create({
+            number: post.number
+        }).then(function () {
+            res.status = constants.HTTP.CODES.CREATED;
+            res.send();
+        }).catch(function (err) {
+            res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
+        });;
+    }
+    else {
+        res.status= constants.HTTP.CODES.BAD_REQUEST;
         res.send();
-    });
+    }
 
 }
 /**
@@ -33,7 +43,16 @@ section.getStudents = function (req, res, next) {
             { model: model.Student, as: "Students" }
         ]
     }).then(function (section) {
-        res.json(section);
+        if (section) {
+            res.status = constants.HTTP.CODES.SUCCESS;
+            res.json(section);
+        }
+        else {
+            res.status= constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+        }
+    }).catch(function (err) {
+        res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
     });
 }
 /** 
@@ -46,8 +65,16 @@ section.getActivities = function (req, res, next) {
         where: {
             sectionId: param.section
         }
-    }).then(function (Section) {
-        res.json(Section);
+    }).then(function (section) {
+        if (section) {
+            res.status = constants.HTTP.CODES.SUCCESS;
+            res.json(section);
+        } else {
+            res.status= constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+        }
+    }).catch(function (err) {
+        res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
     });
 }
 
@@ -56,20 +83,38 @@ section.getActivities = function (req, res, next) {
 */
 section.addActivity = function (req, res, next) {
     var param = req.params;
-    var post= req.body;
+    var post = req.body;
     model.Section.find({
         where: {
             id: param.section
         }
-    }).then(function (Section) {
-        model.Activity.create({
-            date: post.date? new Date(post.date):null,
-            description: post.description
-        }).then(function (activity) {
-            activity.setSection(Section);
-            res.sendStatus(201);
-        });
-    });
+    }).then(function (section) {
+        if (section) {
+            if (validator(activity_params, post.body)) {
+                model.Activity.create({
+                    date: post.date ? new Date(post.date) : null,
+                    description: post.description
+                }).then(function (activity) {
+                    activity.setSection(section);
+                    res.status= constants.HTTP.CODES.CREATED;
+                    res.send();
+                }).catch(function (err) {
+                    res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
+                });
+            }
+            else{
+                res.status= constants.HTTP.CODES.BAD_REQUEST;
+                res.send();
+            }
+        }
+        else {
+            res.status= constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+
+        }
+    }).catch(function (err) {
+        res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
+    });;
 
 }
 /** 
@@ -81,16 +126,28 @@ section.getSection = function (req, res, next) {
         where: {
             id: param.section
         }
-    }).then(function (Section) {
-        res.json(Section);
-    });
+    }).then(function (section) {
+        if (section) {
+            res.status = constants.HTTP.CODES.SUCCESS;
+            res.json(section);
+        }
+        else {
+            res.status= constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+        }
+    }).catch(function (err) {
+        res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
+    });;
 }
 /**
  * 
  */
 section.getSections = function (req, res, next) {
-    model.Section.findAll().then(function (Sections) {
-        res.json(Sections);
-    });
+    model.Section.findAll().then(function (sections) {
+        res.status = constants.HTTP.CODES.SUCCESS;
+        res.json(sections);
+    }).catch(function (err) {
+        res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
+    });;
 }
 module.exports = section;

@@ -6,19 +6,25 @@ var responseHelper = require("../../helpers/response");
 
 
 
-var exam = {}
+var exam = {};
+var exam_params = {};
 /** 
  *  
 */
 exam.addExam = function (req, res, next) {
     var post = req.body;
-    model.Exam.create({
-        time: post.time
-    }).then(function () {
-        res.status = 201;
+    if (validator(exam_params,post.body)){
+        model.Exam.create({
+            time: post.time
+        }).then(function () {
+            res.status = res.status = constants.HTTP.CODES.CREATED;
+            res.send();
+        });
+    }else{
+        res.status= constants.HTTP.CODES.NOT_FOUND;
         res.send();
-    });
-    
+    }
+
 }
 /** 
  *  
@@ -29,18 +35,24 @@ exam.getExam = function (req, res, next) {
         where: {
             id: param.exam
         }
-    }).then(function (Exam) {
-            res.json(Exam);
-        });
+    }).then(function (exam) {
+        if (exam) {
+            res.status = constants.HTTP.CODES.SUCCESS;
+            res.json(exam);
+        } else {
+            res.status= constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+        }
+    });
+
 }
 /** 
  *  
 */
 exam.getExams = function (req, res, next) {
-    model.Exam.findAll().then(function (Exams) {
-        //Logic
-        // res.append
-        res.json(Exams);
+    model.Exam.findAll().then(function (exams) {
+        res.status = constants.HTTP.CODES.SUCCESS;
+        res.json(exams);
     });
 }
 

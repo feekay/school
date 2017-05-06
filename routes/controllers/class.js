@@ -5,7 +5,8 @@ var constants = require("../../config/constants");
 var responseHelper = require("../../helpers/response");
 
 
-var cls = {}
+var cls = {};
+var section_params={}
 /** 
  *  
 */
@@ -15,16 +16,23 @@ cls.getClass = function (req, res, next) {
         where: {
             id: param.class
         }
-    }).then(function (Class) {
-        res.json(Class);
+    }).then(function (cls) {
+        if (cls) {
+            res.status = constants.HTTP.CODES.SUCCESS;
+            res.json(cls);
+        } else {
+            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+        }
     });
 }
 /** 
  *  
 */
 cls.getClasses = function (req, res, next) {
-    model.Class.findAll().then(function (Classes) {
-        res.json(Classes);
+    model.Class.findAll().then(function (classes) {
+        res.status = constants.HTTP.CODES.SUCCESS;
+        res.json(classes);
     });
 }
 /** 
@@ -37,17 +45,29 @@ cls.addCourse = function (req, res, next) {
         where: {
             id: param.class
         }
-    }).then(function (Class) {
-        model.Course.find({
-            where: {
-                id: post.courseId
-            }
-        }).then(function (Course) {
-            Class.addCourse(Course);
-            res.sendStatus(201);
-        });
+    }).then(function (cls) {
+        if (cls) {
+            model.Course.find({
+                where: {
+                    id: post.courseId
+                }
+            }).then(function (course) {
+                if (course) {
+                    cls.addCourse(course);
+                    res.status = constants.HTTP.CODES.UPDATE;
+                    res.send();
+                }
+                else {
+                    res.status = constants.HTTP.CODES.NOT_FOUND;
+                    res.send();
+                }
+            });
+        }
+        else {
+            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res, send();
+        }
     });
-    ;
 }
 /** 
  *  
@@ -61,8 +81,15 @@ cls.getCourses = function (req, res, next) {
         where: {
             id: param.class
         }
-    }).then(function (Class) {
-        res.json(Class.Courses);
+    }).then(function (cls) {
+        if (cls) {
+            res.status = constants.HTTP.CODES.SUCCESS;
+            res.json(cls.Courses);
+        }
+        else {
+            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+        }
     });
 }
 /** 
@@ -76,12 +103,25 @@ cls.addSection = function (req, res, next) {
             id: param.class
         }
     }).then(function (cls) {
-        model.Section.create({
-            number: post.number
-        }).then(function (section) {
-            cls.addSection(section);
-            res.sendStatus(201);
-        });
+        if (cls) {
+            if (validator(section_params, post.body)) {
+                model.Section.create({
+                    number: post.number
+                }).then(function (section) {
+                    cls.addSection(section);
+                    res.status = constants.HTTP.CODES.SUCCESS;
+                    res, send();
+                });
+            }
+            else {
+                res.status = constants.HTTP.CODES.BAD_REQUEST;
+                res.send();
+            }
+        }
+        else {
+            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+        }
     });
 }
 /** 
@@ -96,8 +136,14 @@ cls.getSections = function (req, res, next) {
         where: {
             id: param.class
         }
-    }).then(function (Class) {
-        res.json(Class.Sections);
+    }).then(function (cls) {
+        if (cls) {
+            res.status = constants.HTTP.CODES.SUCCESS;
+            res.json(cls.Sections);
+        } else {
+            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+        }
     });
 }
 

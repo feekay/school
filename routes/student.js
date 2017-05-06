@@ -11,7 +11,7 @@ router.get('/', student.getStudents);
 /* GET <META>. */
 router.get('/:student/', student.getStudent);
 router.put('/:student/', student.editStudent);
-
+router.delete('/:student/', student.deleteStudent);
 /* Add <META>. */
 router.post('/', student.addStudent);
 

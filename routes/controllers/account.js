@@ -15,17 +15,22 @@ account.getAccount = function (req, res, next) {
             id: param.account
         }
     }).then(function (account) {
+        if (account) {
+            res.status = constants.HTTP.CODES.SUCCESS;
             res.json(account);
-        });
-        next();
+        }else{
+            res.status= constants.HTTP.CODES.NOT_FOUND;
+            res.send();
+        }
+    });
 }
 /** 
  *  
 */
 account.getAccounts = function (req, res, next) {
     model.Account.findAll().then(function (accounts) {
+        res.status = constants.HTTP.CODES.SUCCESS;
         res.json(accounts);
     });
-    next();
 }
 module.exports = account;
