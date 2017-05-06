@@ -110,7 +110,7 @@ cls.addSection = function (req, res, next) {
                 }).then(function (section) {
                     cls.addSection(section);
                     res.status = constants.HTTP.CODES.SUCCESS;
-                    res, send();
+                    res.send();
                 });
             }
             else {

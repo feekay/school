@@ -61,7 +61,7 @@ section.getStudents = function (req, res, next) {
 section.getActivities = function (req, res, next) {
 
     var param = req.params;
-    model.Activity.find({
+    model.Activity.findAll({
         where: {
             sectionId: param.section
         }
