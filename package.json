@@ -17,7 +17,9 @@
     "mysql": "latest",
     "sequelize": "3.30.4",
     "sequelize-cli": "latest",
-    "passport":"latest"
+    "passport":"latest",
+    "jsonwebtoken":"latest",
+    "bcrypt":"latest"
   }
 }
 

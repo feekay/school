@@ -3,6 +3,7 @@ var validator = require('../../helpers/validate');
 var requestHelper = require("../../helpers/request");
 var constants = require("../../config/constants");
 var responseHelper = require("../../helpers/response");
+var bcrypt = require('bcrypt');
 
 
 var teacher = {};
@@ -91,10 +92,13 @@ teacher.addTeacher = function (req, res, next) {
     if (validator(teacher_params, post)) {
         model.Teacher.create().then(function (s) {
             model.User.create({
+                username: post.username,
                 firstname: post.firstname,
                 lastname: post.lastname,
                 gender: post.gender,
-                dob: post.dob ? new Date(post.dob) : null
+                dob: post.dob ? new Date(post.dob) : null,
+                password: bcrypt.hashSync(post.password, 10)
+
             })
                 .then(function (user) {
                     s.setUser(user);

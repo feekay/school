@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -16,6 +17,9 @@ var account = require('./routes/account');
 var teacher = require('./routes/teacher');
 var staff = require('./routes/staff');
 var section = require('./routes/section');
+
+var user_controller = require('./routes/controllers/user');
+
 var app = express();
 
 // view engine setup
@@ -51,6 +55,7 @@ app.use('/exams', exam);
 app.use('/teachers', teacher);
 app.use('/staffs', staff);
 app.use('/sections', section);
+app.post('/login',user_controller.login);
 
 // catch 404 and forward to error handler
 

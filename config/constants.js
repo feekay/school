@@ -30,5 +30,8 @@ module.exports = {
         GENERAL:{
             FIELDS_REQUIRED: "Input fields are missing or invalid, please provide the correct required fields."
         }
+     },
+     SECRET:{
+         superSecret:"djmo5bgfiewuprb9eai4ek"
      }
 }
