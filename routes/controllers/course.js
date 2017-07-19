@@ -17,11 +17,11 @@ course.addCourse = function (req, res, next) {
         model.Course.create({
             name: post.name
         }).then(function () {
-            res.status = res.status = constants.HTTP.CODES.CREATED;
+            es.status( constants.HTTP.CODES.CREATED);
             res.send();
         });
     } else {
-        res.status = constants.HTTP.CODES.BAD_REQUEST;
+        res.status( constants.HTTP.CODES.BAD_REQUEST);
         res.send();
     }
 }
@@ -36,10 +36,10 @@ course.getCourse = function (req, res, next) {
         }
     }).then(function (course) {
         if (course) {
-            res.status = constants.HTTP.CODES.SUCCESS;
+            res.status( constants.HTTP.CODES.SUCCESS);
             res.json(course);
         } else {
-            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.status( constants.HTTP.CODES.NOT_FOUND);
             res.send
         }
     });
@@ -49,7 +49,7 @@ course.getCourse = function (req, res, next) {
 */
 course.getCourses = function (req, res, next) {
     model.Course.findAll().then(function (Courses) {
-        res.status = constants.HTTP.CODES.SUCCESS;
+        res.status( constants.HTTP.CODES.SUCCESS);
         res.json(Courses);
     });
 }
@@ -58,16 +58,16 @@ course.getTeaching = function (req, res, next) {
     model.Teaching.findAll({
         where: { courseId: param.course },
         include: [
-            { model: model.Teacher, as: "Teacher" },
+            { model: model.Teacher, as: "Teacher", include:[{model:model.User, as:"User"}] },
             { model: model.Section, as: "Section" }
         ]
     }).then(function (teaching) {
         if (teaching){
-            res.status = constants.HTTP.CODES.SUCCESS;
+            res.status( constants.HTTP.CODES.SUCCESS);
             res.json(teaching);
         }
         else {
-            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.status( constants.HTTP.CODES.NOT_FOUND);
             res.send()
         }
     })

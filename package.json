@@ -19,7 +19,8 @@
     "sequelize-cli": "latest",
     "passport":"latest",
     "jsonwebtoken":"latest",
-    "bcrypt":"latest"
+    "bcrypt":"latest",
+    "multer":"latest"
   }
 }
 

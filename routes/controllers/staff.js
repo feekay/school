@@ -22,7 +22,7 @@ staff.editStaff = function (req, res, next) {
             gender: post.gender ? post.gender : s.gender,
             dob: post.dob ? new Date(post.dob) : s.dob
         });
-        res.status = 201;
+        res.status(constants.HTTP.CODES.CREATED);
         res.send();
     }).catch(function (err) {
         res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
@@ -47,13 +47,13 @@ staff.addStaff = function (req, res, next) {
                 s.setUser(user);
             });
 
-            res.status= constants.HTTP.CODES.CREATED;
+            res.status(constants.HTTP.CODES.CREATED);
             res.send();
         }).catch(function (err) {
             res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
         });
     }else{
-        res.status= constants.HTTP.CODES.BAD_REQUEST;
+        res.status(constants.HTTP.CODES.BAD_REQUEST);
         res.send();
     }
 
@@ -80,11 +80,11 @@ staff.getStaff = function (req, res, next) {
         }
     }).then(function (staff) {
         if (staff) {
-            res.status = constants.HTTP.CODES.SUCCESS;
+            res.status( constants.HTTP.CODES.SUCCESS);
             res.json(staff);
         }
         else {
-            res.status= constants.HTTP.CODES.NOT_FOUND;
+            res.status(constants.HTTP.CODES.NOT_FOUND);
             res.send();
         }
     }).catch(function (err) {
@@ -107,7 +107,7 @@ staff.getStaffs = function (req, res, next) {
             }
         ]
     }).then(function (staffs) {
-        res.status= constants.HTTP.CODES.SUCCESS;
+        res.status(constants.HTTP.CODES.SUCCESS);
         res.json(staffs);
     }).catch(function (err) {
         res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);

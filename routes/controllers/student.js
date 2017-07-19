@@ -24,14 +24,15 @@ student.editStudent = function (req, res, next) {
                     gender: post.gender ? post.gender : s.gender,
                     dob: post.dob ? new Date(post.dob) : s.dob
                 });
-                res.status = constants.HTTP.CODES.CREATED;
+                res.status( constants.HTTP.CODES.CREATED);
                 res.send();
             }
             else {
-                res.status = constants.HTTP.CODES.NOT_FOUND;
+                res.status( constants.HTTP.CODES.NOT_FOUND);
                 res.send();
             }
         }).catch(function (err) {
+            console.log(err);
             res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
         });
 
@@ -45,7 +46,7 @@ student.deleteStudent = function (req, res, next) {
 
     model.Student.destroy({ where: { id: param.student } })
         .then(function (s) {
-            res.status = constants.HTTP.CODES.SUCCESS;
+            res.status( constants.HTTP.CODES.SUCCESS);
             res.send();
         }).catch(function (err) {
             res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
@@ -70,14 +71,14 @@ student.addStudent = function (req, res, next) {
             }).then(function (user) {
                 s.setUser(user);
             });
-            res.status = constants.HTTP.CODES.CREATED
+            res.status( constants.HTTP.CODES.CREATED);
             res.send();
         }).catch(function (err) {
             res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
         });
     }
     else {
-        res.status = constants.HTTP.CODES.BAD_REQUEST;
+        res.status( constants.HTTP.CODES.BAD_REQUES);
         res.send();
     }
 }
@@ -94,7 +95,7 @@ student.getStudent = function (req, res, next) {
             },
             {
                 model: model.Section,
-                as: "Class"
+                as: "Section"
             }
         ],
         where: {
@@ -102,15 +103,16 @@ student.getStudent = function (req, res, next) {
         }
     }).then(function (student) {
         if (student) {
-            res.status = constants.HTTP.CODES.SUCCESS;
+            res.status( constants.HTTP.CODES.SUCCESS);
             res.json(student);
         } else {
-            res.status = constants.HTTP.CODES.BAD_REQUEST;
+            res.status( constants.HTTP.CODES.BAD_REQUEST);
             res.send();
         }
     }).catch(function (err) {
+        console.log(err);
         res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
-    });;
+    });
 }
 /** 
  *  
@@ -124,14 +126,14 @@ student.getStudents = function (req, res, next) {
             },
             {
                 model: model.Section,
-                as: "Class"
+                as: "Section"
             }
         ]
     }).then(function (students) {
-        res.status = constants.HTTP.CODES.SUCCESS;
+        res.status( constants.HTTP.CODES.SUCCESS);
         res.json(students);
     }).catch(function (err) {
         res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
-    });;
+    });
 }
 module.exports = student;

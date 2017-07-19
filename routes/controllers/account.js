@@ -16,10 +16,10 @@ account.getAccount = function (req, res, next) {
         }
     }).then(function (account) {
         if (account) {
-            res.status = constants.HTTP.CODES.SUCCESS;
+            res.status( constants.HTTP.CODES.SUCCESS);
             res.json(account);
         }else{
-            res.status= constants.HTTP.CODES.NOT_FOUND;
+            res.status(constants.HTTP.CODES.NOT_FOUND);
             res.send();
         }
     });
@@ -29,7 +29,7 @@ account.getAccount = function (req, res, next) {
 */
 account.getAccounts = function (req, res, next) {
     model.Account.findAll().then(function (accounts) {
-        res.status = constants.HTTP.CODES.SUCCESS;
+        res.status( constants.HTTP.CODES.SUCCESS);
         res.json(accounts);
     });
 }

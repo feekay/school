@@ -19,6 +19,7 @@ var staff = require('./routes/staff');
 var section = require('./routes/section');
 
 var user_controller = require('./routes/controllers/user');
+var auth = require('./helpers/auth');
 
 var app = express();
 
@@ -30,7 +31,8 @@ var allowCrossDomain = function(req, res, next) {
 //    res.header('Access-Control-Allow-Origin', '127.0.0.1:4200');
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,x-access-token');
+//    res.header('Access-Control-Allow-Headers', 'x-access-token');
     next();
 }
 
@@ -56,6 +58,7 @@ app.use('/teachers', teacher);
 app.use('/staffs', staff);
 app.use('/sections', section);
 app.post('/login',user_controller.login);
+
 
 // catch 404 and forward to error handler
 

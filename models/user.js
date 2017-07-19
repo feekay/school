@@ -17,6 +17,9 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+        models.User.hasOne(models.Student, {as:"Student",foreignkey:"userId"});
+        models.User.hasOne(models.Teacher, {as:"Teacher",foreignkey:"userId"});
+        models.User.hasOne(models.Staff, {as:"Staff",foreignkey:"userId"});
         
       }
     }

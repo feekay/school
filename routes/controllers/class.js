@@ -6,7 +6,7 @@ var responseHelper = require("../../helpers/response");
 
 
 var cls = {};
-var section_params={}
+var section_params = {}
 /** 
  *  
 */
@@ -18,10 +18,10 @@ cls.getClass = function (req, res, next) {
         }
     }).then(function (cls) {
         if (cls) {
-            res.status = constants.HTTP.CODES.SUCCESS;
+            res.status(constants.HTTP.CODES.SUCCESS);
             res.json(cls);
         } else {
-            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.status(constants.HTTP.CODES.NOT_FOUND);
             res.send();
         }
     });
@@ -31,7 +31,7 @@ cls.getClass = function (req, res, next) {
 */
 cls.getClasses = function (req, res, next) {
     model.Class.findAll().then(function (classes) {
-        res.status = constants.HTTP.CODES.SUCCESS;
+        res.status(constants.HTTP.CODES.SUCCESS);
         res.json(classes);
     });
 }
@@ -54,17 +54,17 @@ cls.addCourse = function (req, res, next) {
             }).then(function (course) {
                 if (course) {
                     cls.addCourse(course);
-                    res.status = constants.HTTP.CODES.UPDATE;
+                    res.status(constants.HTTP.CODES.UPDATE);
                     res.send();
                 }
                 else {
-                    res.status = constants.HTTP.CODES.NOT_FOUND;
+                    res.status(constants.HTTP.CODES.NOT_FOUND);
                     res.send();
                 }
             });
         }
         else {
-            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.status(constants.HTTP.CODES.NOT_FOUND);
             res, send();
         }
     });
@@ -83,11 +83,11 @@ cls.getCourses = function (req, res, next) {
         }
     }).then(function (cls) {
         if (cls) {
-            res.status = constants.HTTP.CODES.SUCCESS;
+            res.status(constants.HTTP.CODES.SUCCESS);
             res.json(cls.Courses);
         }
         else {
-            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.status(constants.HTTP.CODES.NOT_FOUND);
             res.send();
         }
     });
@@ -109,17 +109,17 @@ cls.addSection = function (req, res, next) {
                     number: post.number
                 }).then(function (section) {
                     cls.addSection(section);
-                    res.status = constants.HTTP.CODES.SUCCESS;
+                    res.status(constants.HTTP.CODES.SUCCESS);
                     res.send();
                 });
             }
             else {
-                res.status = constants.HTTP.CODES.BAD_REQUEST;
+                res.status(constants.HTTP.CODES.BAD_REQUEST);
                 res.send();
             }
         }
         else {
-            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.status(constants.HTTP.CODES.NOT_FOUND);
             res.send();
         }
     });
@@ -138,10 +138,10 @@ cls.getSections = function (req, res, next) {
         }
     }).then(function (cls) {
         if (cls) {
-            res.status = constants.HTTP.CODES.SUCCESS;
+            res.status(constants.HTTP.CODES.SUCCESS);
             res.json(cls.Sections);
         } else {
-            res.status = constants.HTTP.CODES.NOT_FOUND;
+            res.status(constants.HTTP.CODES.NOT_FOUND);
             res.send();
         }
     });

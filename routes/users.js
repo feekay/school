@@ -8,6 +8,7 @@ var auth = require('../helpers/auth');
 router.get('/',auth, user.getUsers);
 
 /* Add user. */
-router.post('/', auth, user.addUser);
-
+router.post('/', user.addUser);
+router.post('/login', user.login);
+router.get('/status',auth,function(req,res){return res.sendStatus(200);});
 module.exports = router;
