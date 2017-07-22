@@ -69,7 +69,7 @@ section.addStudent = function (req, res, next) {
     }).then(function (section) {
         if (section) {
             model.Student.find({
-                id: post.studentId
+                where:{id: post.studentId}
             }).then(function (student) {
                 section.addStudent(student);
                 res.status(constants.HTTP.CODES.CREATED);

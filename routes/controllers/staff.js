@@ -35,24 +35,24 @@ staff.editStaff = function (req, res, next) {
 staff.addStaff = function (req, res, next) {
     var post = req.body;
     if (validator(staff_params, post)) {
-        model.Staff.create().then(function (s) {
-            model.User.create({
-                username:post.username,
-                firstname: post.firstname,
-                lastname: post.lastname,
-                gender: post.gender,
-                dob: post.dob ? new Date(post.dob) : null,
-                password: bcrypt.hashSync(post.password, 10)
-            }).then(function (user) {
+        model.User.create({
+            username: post.username,
+            firstname: post.firstname,
+            lastname: post.lastname,
+            gender: post.gender,
+            dob: post.dob ? new Date(post.dob) : null,
+            password: bcrypt.hashSync(post.password, 10)
+        }).then(function (user) {
+            model.Staff.create().then(function (s) {
                 s.setUser(user);
+                res.status(constants.HTTP.CODES.CREATED);
+                res.send();
             });
 
-            res.status(constants.HTTP.CODES.CREATED);
-            res.send();
         }).catch(function (err) {
             res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
         });
-    }else{
+    } else {
         res.status(constants.HTTP.CODES.BAD_REQUEST);
         res.send();
     }
@@ -80,7 +80,7 @@ staff.getStaff = function (req, res, next) {
         }
     }).then(function (staff) {
         if (staff) {
-            res.status( constants.HTTP.CODES.SUCCESS);
+            res.status(constants.HTTP.CODES.SUCCESS);
             res.json(staff);
         }
         else {

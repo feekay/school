@@ -17,7 +17,7 @@ course.addCourse = function (req, res, next) {
         model.Course.create({
             name: post.name
         }).then(function () {
-            es.status( constants.HTTP.CODES.CREATED);
+            res.status( constants.HTTP.CODES.CREATED);
             res.send();
         });
     } else {

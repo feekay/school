@@ -89,15 +89,14 @@ user.login = function (req, res) {
             if (bcrypt.compareSync(post.password, user.password)) {
                 res.status(constants.HTTP.CODES.SUCCESS);
                 var token = jwt.sign({ username: user.username, password: user.password }, superSecret);
-                getPermission(user).then(function (permission) {
-                    res.json({ token: token, permission: permission });
+                getPermission(user).then(function (perm) {
+                    res.json({ token: token, permission: perm.permission, id: perm.id });
                 });
             }
             else {
                 res.status(constants.HTTP.CODES.UNAUTHORIZED);
                 res.json(responseHelper.formatResponse(constants.MESSAGES.LOGIN.AUTH_FAILED));
             }
-
         }
         else {
             res.status(constants.HTTP.CODES.UNAUTHORIZED);
@@ -111,24 +110,25 @@ user.login = function (req, res) {
 
 }
 function getPermission(user) {
-    //this={}
-    this.permission = "";
+
+    this.permission = {};
     return user.getStudent().then(function (student) {
         if (student) {
-            return this.permission = "student";
+            return this.permission = {permission:"student", id:student.id};
         }
         else {
             return user.getTeacher().then(function (teacher) {
                 if (teacher) {
-                    return this.permission = "teacher";
+                    return this.permission = {permission:"teacher", id:teacher.id};
                 }
                 else {
                     return user.getStaff().then(function (staff) {
                         if (staff) {
-                            this.permission = "staff";
+                            this.permission = {permission:"staff",id:staff.id};
+                            
                         }
                         else {
-                            this.permission = "admin";
+                            this.permission = {permission:"admin",id:user.id};
                         }
                         return this.permission;
                     }.bind(this));

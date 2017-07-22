@@ -23,7 +23,7 @@ teacher.editTeacher = function (req, res, next) {
             gender: post.gender ? post.gender : s.gender,
             dob: post.dob ? new Date(post.dob) : s.dob
         });
-        res.status( constants.HTTP.CODES.UPDATE);
+        res.status(constants.HTTP.CODES.UPDATE);
         res.send();
     }).catch(function (err) {
         res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
@@ -44,11 +44,11 @@ teacher.getCourses = function (req, res, next) {
         ]
     }).then(function (t) {
         if (t) {
-            res.status( constants.HTTP.CODES.SUCCESS);
+            res.status(constants.HTTP.CODES.SUCCESS);
             res.json(t);
         }
         else {
-            res.status( constants.HTTP.CODES.NOT_FOUND);
+            res.status(constants.HTTP.CODES.NOT_FOUND);
             res.send();
         }
     }).catch(function (err) {
@@ -70,7 +70,7 @@ teacher.addCourse = function (req, res, next) {
                         t.setTeacher(teacher);
                         t.setSection(section);
                         t.setCourse(course);
-                        res.status( constants.HTTP.CODES.CREATED);
+                        res.status(constants.HTTP.CODES.CREATED);
                         res.send();
                     });
                 });
@@ -90,27 +90,27 @@ teacher.addCourse = function (req, res, next) {
 teacher.addTeacher = function (req, res, next) {
     var post = req.body;
     if (validator(teacher_params, post)) {
-        model.Teacher.create().then(function (s) {
-            model.User.create({
-                username: post.username,
-                firstname: post.firstname,
-                lastname: post.lastname,
-                gender: post.gender,
-                dob: post.dob ? new Date(post.dob) : null,
-                password: bcrypt.hashSync(post.password, 10)
+        model.User.create({
+            username: post.username,
+            firstname: post.firstname,
+            lastname: post.lastname,
+            gender: post.gender,
+            dob: post.dob ? new Date(post.dob) : null,
+            password: bcrypt.hashSync(post.password, 10)
 
-            })
-                .then(function (user) {
-                    s.setUser(user);
-                });
-            res.status( constants.HTTP.CODES.CREATED);
-            res.send();
+        }).then(function (user) {
+
+            model.Teacher.create().then(function (t) {
+                t.setUser(user);
+                res.status(constants.HTTP.CODES.CREATED);
+                res.send();
+            });
         }).catch(function (err) {
             res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
         });;
     }
     else {
-        res.status( constants.HTTP.CODES.BAD_REQUEST);
+        res.status(constants.HTTP.CODES.BAD_REQUEST);
         res.send();
     }
 
@@ -137,10 +137,10 @@ teacher.getTeacher = function (req, res, next) {
         }
     }).then(function (teacher) {
         if (teacher) {
-            res.status( constants.HTTP.CODES.SUCCESS);
+            res.status(constants.HTTP.CODES.SUCCESS);
             res.json(teacher);
         } else {
-            res.status( constants.HTTP.CODES.NOT_FOUND);
+            res.status(constants.HTTP.CODES.NOT_FOUND);
             res.send();
         }
     }).catch(function (err) {
@@ -164,7 +164,7 @@ teacher.getTeachers = function (req, res, next) {
             }
         ]
     }).then(function (teachers) {
-        res.status( constants.HTTP.CODES.SUCCESS);
+        res.status(constants.HTTP.CODES.SUCCESS);
         res.json(teachers);
     }).catch(function (err) {
         res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
