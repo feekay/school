@@ -1,7 +1,11 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Section = sequelize.define('Section', {
-    number: DataTypes.INTEGER
+    number: {
+      type:DataTypes.INTEGER,
+      unique:true,
+      allowNull:false,
+    }
   }, {
     classMethods: {
       associate: function(models) {

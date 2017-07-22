@@ -7,7 +7,14 @@ var bcrypt = require('bcrypt');
 
 
 var teacher = {};
-var teacher_params = {};
+var teacher_params = {
+    'username': 'string',
+    'firstname': 'string',
+    'lastname': 'string',
+    'gender': 'string',
+    'dob': 'string',
+    'password': 'string',
+};
 var course_params = {};
 /** 
  *  
@@ -106,12 +113,14 @@ teacher.addTeacher = function (req, res, next) {
                 res.send();
             });
         }).catch(function (err) {
-            res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
+            res.status(constants.HTTP.CODES.SERVER_ERROR);
+            res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.INTERNAL_ERROR));
         });;
     }
     else {
         res.status(constants.HTTP.CODES.BAD_REQUEST);
-        res.send();
+        res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.FIELDS_REQUIRED));
+
     }
 
 }

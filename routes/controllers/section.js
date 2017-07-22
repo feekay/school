@@ -6,7 +6,10 @@ var responseHelper = require("../../helpers/response");
 
 
 var section = {};
-var activity_params = {};
+var activity_params = {
+    'date':'date',
+    'description':'string'
+};
 var section_params = {};
 /** 
  *  
@@ -69,7 +72,7 @@ section.addStudent = function (req, res, next) {
     }).then(function (section) {
         if (section) {
             model.Student.find({
-                where:{id: post.studentId}
+                where: { id: post.studentId }
             }).then(function (student) {
                 section.addStudent(student);
                 res.status(constants.HTTP.CODES.CREATED);
@@ -135,14 +138,14 @@ section.addActivity = function (req, res, next) {
                     res.status(constants.HTTP.CODES.CREATED);
                     res.send();
                 }).catch(function (err) {
-
                     console.log(err);
                     res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
                 });
             }
             else {
                 res.status(constants.HTTP.CODES.BAD_REQUEST);
-                res.send();
+                res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.FIELDS_REQUIRED));
+
             }
         }
         else {

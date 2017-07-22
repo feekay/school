@@ -1,7 +1,11 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Campus = sequelize.define('Campus', {
-    name: DataTypes.STRING,
+    name: {
+      type:DataTypes.STRING,
+      unique:true,
+      allowNull:false
+    },
     address: DataTypes.STRING
   }, {
     classMethods: {

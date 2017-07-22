@@ -28,7 +28,9 @@ module.exports = {
            INACTIVE: "Your account is deactivated, please login again."
         },
         GENERAL:{
-            FIELDS_REQUIRED: "Input fields are missing or invalid, please provide the correct required fields."
+            FIELDS_REQUIRED: "Input fields are missing or invalid, please provide the correct required fields.",
+            UNIQUE_CONSTRAINT: "Unique key error; key already exists",
+            INTERNAL_ERROR:"We are fixing a few things internally. Sorry for the inconvinience!"
         }
      },
      SECRET:{

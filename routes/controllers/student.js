@@ -7,7 +7,14 @@ var bcrypt = require('bcrypt');
 
 
 var student = {};
-var student_params = {};
+var student_params = {
+    'username': 'string',
+    'firstname': 'string',
+    'lastname': 'string',
+    'gender': 'string',
+    'dob': 'string',
+    'password': 'string',
+};
 /** 
  *  
 */
@@ -49,6 +56,7 @@ student.deleteStudent = function (req, res, next) {
             res.status(constants.HTTP.CODES.SUCCESS);
             res.send();
         }).catch(function (err) {
+            console.log(err);            
             res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
         });
 
@@ -73,12 +81,14 @@ student.addStudent = function (req, res, next) {
                 res.send();
             });
         }).catch(function (err) {
-            res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
+            console.log(err);            
+            res.status(constants.HTTP.CODES.SERVER_ERROR);
+            res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.INTERNAL_ERROR));
         });
     }
     else {
-        res.status(constants.HTTP.CODES.BAD_REQUES);
-        res.send();
+        res.status(constants.HTTP.CODES.BAD_REQUEST);
+        res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.FIELDS_REQUIRED));
     }
 }
 /** 

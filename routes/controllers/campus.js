@@ -12,10 +12,12 @@ var account_params = {
 }
 
 var class_params = {
-
+    'name': 'string',
+    'fee': 'number'
 }
 var campus_params = {
-
+    'name': 'string',
+    'address': 'string'
 }
 /** 
  *  
@@ -40,7 +42,7 @@ campus.addAccount = function (req, res, next) {
             }
             else {
                 res.status(constants.HTTP.CODES.BAD_REQUEST);
-                res.send();
+                res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.FIELDS_REQUIRED));
             }
         }
         else {
@@ -48,7 +50,6 @@ campus.addAccount = function (req, res, next) {
             res, send();
         }
     });
-    ;
 }
 /** 
  *  
@@ -74,7 +75,6 @@ campus.getAccounts = function (req, res, next) {
             res.send();
         }
     });
-    ;
 }
 
 /** 
@@ -100,7 +100,7 @@ campus.addClass = function (req, res, next) {
                 });
             } else {
                 res.status(constants.HTTP.CODES.BAD_REQUEST);
-                res.send();
+                res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.FIELDS_REQUIRED));
             }
         }
         else {
@@ -126,7 +126,6 @@ campus.getClasses = function (req, res, next) {
     }).then(function (campus) {
         if (campus) {
             res.status(constants.HTTP.CODES.SUCCESS);
-            res.status(constants.HTTP.CODES.SUCCESS);
             res.json(campus.Classes);
         } else {
             res.status(constants.HTTP.CODES.NOT_FOUND);
@@ -147,11 +146,15 @@ campus.addCampus = function (req, res, next) {
         }).then(function (campus) {
             res.status(constants.HTTP.CODES.CREATED);
             res.send();
+        }).catch(function (err) {
+            res.status(constants.HTTP.CODES.BAD_REQUEST);
+            res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.UNIQUE_CONSTRAINT));
         });
     }
     else {
         res.status(constants.HTTP.CODES.BAD_REQUEST);
-        res.send();
+        res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.FIELDS_REQUIRED));
+
     }
 
 }

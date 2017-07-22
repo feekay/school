@@ -7,7 +7,14 @@ var bcrypt = require('bcrypt');
 
 
 var staff = {};
-var staff_params = {};
+var staff_params = {
+    'username': 'string',
+    'firstname': 'string',
+    'lastname': 'string',
+    'gender': 'string',
+    'dob': 'string',
+    'password': 'string',
+};
 /** 
  *  
 */
@@ -50,11 +57,14 @@ staff.addStaff = function (req, res, next) {
             });
 
         }).catch(function (err) {
-            res.sendStatus(constants.HTTP.CODES.SERVER_ERROR);
+            res.status(constants.HTTP.CODES.SERVER_ERROR);
+            res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.INTERNAL_ERROR));
+
         });
     } else {
         res.status(constants.HTTP.CODES.BAD_REQUEST);
-        res.send();
+        res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.FIELDS_REQUIRED));
+
     }
 
 }

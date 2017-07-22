@@ -6,7 +6,9 @@ var responseHelper = require("../../helpers/response");
 
 
 var cls = {};
-var section_params = {}
+var section_params = {
+    'number': 'number'
+}
 /** 
  *  
 */
@@ -111,11 +113,15 @@ cls.addSection = function (req, res, next) {
                     cls.addSection(section);
                     res.status(constants.HTTP.CODES.SUCCESS);
                     res.send();
+                }).catch(function (err) {
+                    res.status(constants.HTTP.CODES.BAD_REQUEST);
+                    res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.UNIQUE_CONSTRAINT));
                 });
             }
             else {
                 res.status(constants.HTTP.CODES.BAD_REQUEST);
-                res.send();
+                res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.FIELDS_REQUIRED));
+
             }
         }
         else {

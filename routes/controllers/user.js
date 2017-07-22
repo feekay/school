@@ -41,7 +41,7 @@ user.addUser = function (req, res, next) {
     }
     else {
         res.status(constants.HTTP.CODES.BAD_REQUEST);
-        res.send();
+        res.send(responseHelper.formatResponse(constants.MESSAGES.GENERAL.FIELDS_REQUIRED));
     }
 }
 /** 
